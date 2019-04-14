@@ -22,7 +22,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-    throw new Error('Not implemented');
+    return value1 + value2
 }
 
 
@@ -38,7 +38,7 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-    throw new Error('Not implemented');
+    return value.length
 }
 
 /**
@@ -55,7 +55,7 @@ function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 function getStringFromTemplate(firstName, lastName) {
-    throw new Error('Not implemented');
+    return "Hello, " + firstName + " " + lastName + "!"
 }
 
 /**
@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    throw new Error('Not implemented');
+    return value.slice(value.indexOf(" ") + 1, value.indexOf("!"))
 }
 
 
@@ -84,7 +84,7 @@ function extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 function getFirstChar(value) {
-    throw new Error('Not implemented');
+    return value[0]
 }
 
 /**
@@ -99,7 +99,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    return value.replace(/^\s+|\s+$/g,'');  
 }
 
 /**
@@ -114,7 +114,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-    throw new Error('Not implemented');
+    return value.repeat(count)
 }
 
 /**
@@ -130,7 +130,9 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    let tmp = str.split("")
+    tmp.splice(str.indexOf(value), value.length)
+    return tmp.join("")
 }
 
 /**
@@ -145,7 +147,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    throw new Error('Not implemented');
+    return str.slice(1, str.length - 1)
 }
 
 
@@ -160,7 +162,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    throw new Error('Not implemented');
+    return str.toUpperCase()
 }
 
 /**
@@ -174,7 +176,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-    throw new Error('Not implemented');
+    return str.split(";")
 }
 
 /**
@@ -201,7 +203,13 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    let str1 = width > 2? '┌' + "─".repeat(width - 2) + '┐\n' : '┌┐\n'
+    if (height > 2) {
+        let str2 = '│' + ' '.repeat(width - 2) +'│\n'
+        str1 = str1 + str2.repeat(height - 2)
+    }
+    str1 = width > 2? str1 + '└' + "─".repeat(width - 2) + '┘\n' : str1 + '└┘\n'
+    return str1
 }
 
 
@@ -221,7 +229,13 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    return str.split("").map((el) => {
+        if (el.charCodeAt(0) >= "A".charCodeAt(0) && el.charCodeAt(0) <= "Z".charCodeAt(0))
+            el = el.charCodeAt(0) - "A".charCodeAt(0) > 12? String.fromCharCode(el.charCodeAt(0) - 13) : String.fromCharCode(el.charCodeAt(0) + 13)
+        if (el.charCodeAt(0) >= "a".charCodeAt(0) && el.charCodeAt(0) <= "z".charCodeAt(0))
+            el = el.charCodeAt(0) - "a".charCodeAt(0) > 12? String.fromCharCode(el.charCodeAt(0) - 13) : String.fromCharCode(el.charCodeAt(0) + 13)
+        return el
+    }).join("")
 }
 
 /**
@@ -238,7 +252,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+    return typeof value == "string" || value instanceof String
 }
 
 
@@ -267,7 +281,17 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    let id
+    if (value[value.length - 1] == "♣") id = 0
+    if (value[value.length - 1] == "♦") id = 13
+    if (value[value.length - 1] == "♥") id = 26
+    if (value[value.length - 1] == "♠") id = 39
+    if (value[0] == "1") return id + 9
+    if (value[0] == "J") return id + 10
+    if (value[0] == "Q") return id + 11
+    if (value[0] == "K") return id + 12
+    id += value[0] == "A" ?  0: +value[0]-1
+    return id
 }
 
 
